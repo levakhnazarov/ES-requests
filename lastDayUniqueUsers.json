@@ -1,0 +1,60 @@
+{
+  "aggs": {
+    "2": {
+      "date_range": {
+        "field": "date",
+        "ranges": [
+          {
+            "from": "now-1d",
+            "to": "now"
+          }
+        ]
+      },
+      "aggs": {
+        "1": {
+          "cardinality": {
+            "field": "userId.keyword"
+          }
+        }
+      }
+    }
+  },
+  "size": 0,
+  "_source": {
+    "excludes": []
+  },
+  "stored_fields": [
+    "*"
+  ],
+  "script_fields": {},
+  "docvalue_fields": [
+    {
+      "field": "date",
+      "format": "date_time"
+    }
+  ],
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match_all": {}
+        },
+        {
+          "match_all": {}
+        },
+        {
+          "range": {
+            "date": {
+              "gte": 1561928400000,
+              "lte": 1564606799999,
+              "format": "epoch_millis"
+            }
+          }
+        }
+      ],
+      "filter": [],
+      "should": [],
+      "must_not": []
+    }
+  }
+}

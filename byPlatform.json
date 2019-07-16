@@ -1,0 +1,68 @@
+{
+  "aggs": {
+    "2": {
+      "date_histogram": {
+        "field": "date",
+        "interval": "3h",
+        "time_zone": "Europe/Minsk",
+        "min_doc_count": 0
+      },
+      "aggs": {
+        "3": {
+          "terms": {
+            "field": "platform.keyword",
+            "size": 5,
+            "order": {
+              "1": "desc"
+            }
+          },
+          "aggs": {
+            "1": {
+              "cardinality": {
+                "field": "userId.keyword"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "size": 0,
+  "_source": {
+    "excludes": []
+  },
+  "stored_fields": [
+    "*"
+  ],
+  "script_fields": {},
+  "docvalue_fields": [
+    {
+      "field": "date",
+      "format": "date_time"
+    }
+  ],
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "match_all": {}
+        },
+        {
+          "match_all": {}
+        },
+        {
+          "range": {
+            "date": {
+              "gte": 1561928400000,
+              "lte": 1564606799999,
+              "format": "epoch_millis"
+            }
+          }
+        }
+      ],
+      "filter": [],
+      "should": [],
+      "must_not": []
+    }
+  }
+}
